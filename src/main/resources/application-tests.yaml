@@ -18,5 +18,3 @@ spring:
       #ddl-auto: update mettre a jour les schema
       #ddl-auto: create supprime+creation
     show-sql: true
-  profiles:
-    active: tests, git

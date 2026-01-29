@@ -12,7 +12,7 @@ spring:
     password: ${DIC2_DB_PWD}
     url: ${DIC2_DB_PWD}
   profiles:
-    active: ${DIC2_PROFILE}
+    active: ${DIC2_PROFILE:th}
 
   config:
     location: ${CONFIG_DIR}
