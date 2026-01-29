@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    username: root
+    password: letmein
+    url: jdbc:mysql://localhost:3306/dic2_2025
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
