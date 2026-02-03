@@ -23,6 +23,11 @@ public class CustomSecurityFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
 
+//      Recuperer l'entete authorization
+//        Extraire le token
+//        verifier que le token est valide
+//        Tu recuperes le proprietaire du token
+//        et tu l'injectes la.
         if (request.getParameter("email") != null) {
             String email = request.getParameter("email");
             Employe e = new Employe();

@@ -16,6 +16,5 @@ public class Employe extends Personne {
     private Integer id;
 
     @Column(nullable = false)
-    @JsonIgnore
     private Double salary;
 }

@@ -1,5 +1,10 @@
 package sn.edu.ept.git.dic2.HelloSpringBoot.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,18 +67,61 @@ public class EmployeController {
         return employeService.findAll();
     }
 
+    @Tag(name = "Gestion employés")
     @GetMapping("/{id}")
     public Employe findById(@PathVariable(name = "id") Integer idEmploye) {
         return employeService.findById(idEmploye);
     }
 
+    @Tag(name = "Gestion employés")
+    @Operation(
+            summary = "Enregistrer un employe",
+            description = "Permet d'enregsitrer un employe, vous ne devrez pas fournir l'ID",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "L'enregistrement est effectue avec succes",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    examples = @ExampleObject(
+                                            summary = "l'employe enregistré",
+                                            value = "{\n" +
+                                                    "  \"id\": 3,\n" +
+                                                    "  \"nom\": \"DIOP\",\n" +
+                                                    "  \"prenom\": \"ADJA\",\n" +
+                                                    "  \"salary\": 2000.0\n" +
+                                                    "}"
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "251",
+                            description = "Le nom est absent"
+                    ),
+                    @ApiResponse(
+                            responseCode = "250",
+                            description = "Le prenom est absent"
+                    )
+            }
+    )
     @PutMapping
-    public ResponseEntity<?> save(@RequestBody Employe employe) {
+    public ResponseEntity<?> save(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "L'employe à enregistrer",
+                    content = @Content(mediaType = "application/json",
+                    examples = @ExampleObject(
+                            value = "{\n" +
+                                    "  \"salary\": 2000,\n" +
+                                    "  \"nom\": \"DIOP\",\n" +
+                                    "  \"prenom\": \"ADJA\"\n" +
+                                    "}"
+                    )
+            ))
+            @RequestBody Employe employe) {
 
         Employe result = employeService.save(employe);
 
-        return ResponseEntity.status(201)
-                .body(result);
+        return ResponseEntity.status(201).body(result);
     }
 
     @PutMapping("/{id}")
